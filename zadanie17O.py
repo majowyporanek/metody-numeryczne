@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def rosenbrock(x):
@@ -27,10 +28,6 @@ def hessian(x):
     return hess
 
 
-# Starting point
-x = np.array([1.2, 1.2])
-
-
 # Newton's method
 def Newton(X):
     history = []
@@ -56,7 +53,7 @@ average_iter = 0
 n = 10
 
 for i in range(n):
-    x_start = np.array([np.random.uniform(-1000000, 1000000), np.random.uniform(1, 100)])
+    x_start = np.array([np.random.uniform(-100, 100), np.random.uniform(1, 100)])
     print("Punkt startowy: : ", x_start)
     wynik = Newton(x_start)
     average_iter = wynik[1] + average_iter
@@ -68,5 +65,22 @@ for i in range(n):
 print("Srednia ilosc iteracji, aby zblizyc sie do minimum: ", average_iter / n)
 print("Punkt startowy, ktory potrzebowal najmniejsza ilosc iteracji = ", min_iter[1], ": ", min_iter[0])
 
+print("")
 pointhistory = Newton(min_iter[0])[4]
-print(pointhistory)
+results = np.empty(min_iter[1])
+xvalues = np.empty(len(pointhistory))
+yvalues = np.empty(len(pointhistory))
+
+for i in range(len(pointhistory)):
+    xvalues[i] = pointhistory[i][0]
+    yvalues[i] = pointhistory[i][1]
+    results[i] = rosenbrock(pointhistory[i])
+
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(xvalues, yvalues, results, label="Położenia kolejnych minimalizacji przy liczbie iteracji = " + str(min_iter[1]))
+
+plt.legend(loc='upper left', fontsize=8)
+plt.show()
+
