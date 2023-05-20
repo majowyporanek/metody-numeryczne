@@ -1,2 +1,2 @@
 # metody-numeryczne
-Programy z metod numerycznych w rok 2022/2023
+Zadania z metod numerycznych - semestr III Informatyka Stosowana.
